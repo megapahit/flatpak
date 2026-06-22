@@ -1,0 +1,58 @@
+{
+  "id": "net.megapahit.Viewer",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "25.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "megapahit",
+  "build-options": {
+    "env": {
+      "LL_BUILD": "-O3 -std=c++20 -fPIC -DLL_LINUX=1"
+    },
+    "build-args": [
+      "--share=network"
+    ]
+  },
+  "finish-args": [
+     "--device=dri",
+     "--device=input",
+     "--share=ipc",
+     "--share=network",
+     "--socket=pulseaudio",
+     "--socket=wayland",
+     "--socket=fallback-x11",
+     "--filesystem=home"
+  ],
+  "cleanup":[
+     "/lib"
+  ],
+  "modules": [
+    {
+      "name": "megapahit",
+      "buildsystem": "cmake-ninja",
+      "subdir": "indra",
+      "config-opts": [
+        "-DCMAKE_BUILD_TYPE:STRING=Release",
+        "-DADDRESS_SIZE:STRING=64",
+        "-DUSE_OPENAL:BOOL=ON",
+        "-DUSE_FMODSTUDIO:BOOL=OFF",
+        "-DUSE_FLATPAK:BOOL=ON",
+        "-DENABLE_MEDIA_PLUGINS:BOOL=ON",
+        "-DLL_TESTS:BOOL=OFF",
+        "-DNDOF:BOOL=ON",
+        "-DROOT_PROJECT_NAME:STRING=Megapahit",
+        "-DVIEWER_CHANNEL:STRING=Megapahit",
+        "-DVIEWER_BINARY_NAME:STRING=megapahit",
+        "-DBUILD_SHARED_LIBS:BOOL=OFF",
+        "-DINSTALL:BOOL=ON",
+        "-DPACKAGE:BOOL=OFF",
+        "-DCMAKE_INSTALL_PREFIX=/app"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "."
+        }
+      ]
+    }
+  ]
+}
