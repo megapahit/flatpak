@@ -23,7 +23,7 @@
      "--filesystem=home"
   ],
   "cleanup":[
-     "/lib"
+     "/lib/debug"
   ],
   "modules": [
     {
